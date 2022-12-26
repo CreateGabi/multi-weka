@@ -9,21 +9,21 @@ import java.util.Random;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.RandomForest;
-import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
 import weka.core.converters.CSVLoader;
 
-public class WekaTest_titanic_2 {
+public class WekaTest_basketball_1 {
 
 	public static void main(String[] args) throws Exception {
 		// 1. 데이터 로딩(수집)
 //		Instances data = new Instances(new BufferedReader(new FileReader("data/titanic2_pre.arff")));
 		CSVLoader loader = new CSVLoader();
-		loader.setSource(new File("data/titanic2_pre.csv"));
+		loader.setSource(new File("data/basketball_stat2.csv"));
 		Instances data = loader.getDataSet(); // arff 형식으로 변환해서 가지고 온다.
 //		System.out.println(data);
 		
+		// instances는 arff파일 형식
 		Instances train = data.trainCV(5, 0, new Random(100));
 		Instances test = data.testCV(5, 0);
 		
@@ -49,15 +49,8 @@ public class WekaTest_titanic_2 {
 		System.out.println(eval.toSummaryString());
 		System.out.println(eval.toMatrixString());
 		
-		SerializationHelper.write("model/titanic_rf.model", model);
+		SerializationHelper.write("model/basketball_rf.model", model);
 		System.out.println("모델로 저장했습니다.");
-		
-		// 한 사람만 테스트
-//		Instance one = test.firstInstance();
-		Instance one = test.get(1);
-		System.out.println(one);
-		
-		System.out.println(eval.evaluateModelOnce(model, one));
 	}
 
 }

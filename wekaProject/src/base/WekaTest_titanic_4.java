@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Random;
+import java.util.Scanner;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -18,7 +19,7 @@ import weka.core.Instances;
 import weka.core.SerializationHelper;
 import weka.core.converters.CSVLoader;
 
-public class WekaTest_titanic_3 {
+public class WekaTest_titanic_4 {
 
 	public static void main(String[] args) throws Exception {
 		// 1. 데이터 로딩(수집)
@@ -33,23 +34,6 @@ public class WekaTest_titanic_3 {
 		
 		// 1. Attribute리스트를 만들자.
 		ArrayList attributes = new ArrayList<>();
-		
-		// 나의 데이터를 넣어서, 내가 타이타닉호에 탔을 때, 죽었을지 살았을지 판단해보자.
-		// arff형식으로 내 데이터를 만들어주어야 한다.
-		// Instances 객체(arff)
-//		@relation titanic-weka.filters.AllFilter-weka.filters.MultiFilter-Fweka.filters.AllFilter-S1-weka.filters.unsupervised.attribute.Remove-R11-weka.filters.unsupervised.attribute.Remove-R12-weka.filters.unsupervised.attribute.Remove-R6-weka.filters.unsupervised.attribute.Remove-R7-weka.filters.unsupervised.attribute.Remove-R8-weka.filters.unsupervised.attribute.Remove-R8-weka.filters.unsupervised.attribute.Remove-R9-weka.filters.supervised.attribute.NominalToBinary-weka.filters.supervised.attribute.NominalToBinary-weka.filters.unsupervised.attribute.Remove-R1-2
-//
-//		@attribute sex=female numeric
-//		@attribute age numeric
-//		@attribute sibsp numeric
-//		@attribute fare numeric
-//		@attribute class=Third numeric
-//		@attribute class=First numeric
-//		@attribute class=Second numeric
-//		@attribute alive {no,yes}
-//
-//		@data
-//		0,22,1,7.25,1,0,0,no
 		
 		// 2. attributes리스트 만들어서 Instances객체에 셋팅
 		Enumeration<Attribute> attr_list = data.enumerateAttributes();
@@ -69,12 +53,23 @@ public class WekaTest_titanic_3 {
 		instances.setClassIndex(instances.numAttributes() - 1);
 		
 		// 4. 분류할 데이터의 값들을 double[]에 넣어주자.
-		// {여자여부, 나이, 형제자매수, 클래스1, 클래스2, 클래스3}
-		// DenseInstance객체는 한 사람의 데이터들을 나타내는 객체 <- 구현 - Instance인터페이스
-		double[] values = {1, 88, 0, 55, 0, 0, 1};
-//		double[] values = {0,22,1,7.25,1,0,0};
-//		double[] values = {1,38,1,71.2833,0,1,0};
-//		double[] values = {1,26,0,7.925,1,0,0};
+		double[] values = new double[7];
+		Scanner sc = new Scanner(System.in);
+		System.out.print("여자여부(틀리면 0, 맞으면 1)>> ");
+		values[0] = sc.nextDouble();
+		System.out.print("나이>> ");
+		values[1] = sc.nextDouble();
+		System.out.print("같이 탄 형제자매수>> ");
+		values[2] = sc.nextDouble();
+		System.out.print("요금>> ");
+		values[3] = sc.nextDouble();
+		System.out.print("3등급여부(틀리면 0, 맞으면 1)>> ");
+		values[4] = sc.nextDouble();
+		System.out.print("2등급여부(틀리면 0, 맞으면 1)>> ");
+		values[5] = sc.nextDouble();
+		System.out.print("1등급여부(틀리면 0, 맞으면 1)>> ");
+		values[6] = sc.nextDouble();
+		sc.close(); // stream을 close(자원해제)
 		instances.add(new DenseInstance(1, values));
 		
 		System.out.println("=== 여기까지 만든 arff(instances) 확인 ===");
