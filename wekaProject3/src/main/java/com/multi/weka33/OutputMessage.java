@@ -1,6 +1,6 @@
 package com.multi.weka33;
 
-
+//서버가 각각의 클라이언트에게 배포할 내용을 넣는 역할 
 public class OutputMessage {
 
 	private String from;
